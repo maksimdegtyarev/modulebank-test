@@ -1,6 +1,5 @@
 # Modulebank test job
 This is the test job for hiring to **[Modulbank](https://modulbank.ru)**.
-**[DEMO](http://***.now.sh)**
 
 ## Install
 ```
