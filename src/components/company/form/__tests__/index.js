@@ -57,7 +57,5 @@ describe("Form works", () => {
 	it("calls reset after onSave", () => {
     const subject = buildSubject();
     const fields = subject.find('ReduxForm').find('Field');
-		
-		
-	})
+	});
 })

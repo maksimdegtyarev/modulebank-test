@@ -1,8 +1,22 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from "react-router-dom";
-import style from './style.css';
+import styled from 'styled-components';
+import Link from '../link';
 
+
+const Container = styled.div`
+  width: 500px;
+  margin-top: 30px;
+  margin-bottom: 20px;
+`;
+const Row = styled.div`
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+`;
+const Span = styled.div`
+  width: 50%;
+`;
 
 export class Item extends Component {
   constructor(props) {
@@ -20,32 +34,38 @@ export class Item extends Component {
       <div>
         {
           this.props.data && this.props.location &&
-          <Link to={`/company/edit/${this.props.data.id}`}>Edit company</Link>
+          <Link to={`/company/edit/${this.props.data.id}`}>Редактировать данные компании</Link>
         }
         {
           this.props.data &&
-          <div>
-              <p>
-                  <strong>ID: </strong>{this.props.data.id}
-              </p>
-              <p>
-                  <strong>Имя: </strong>{this.props.data.name}
-              </p>
-              <p>
-                  <strong>ОГРН: </strong>{this.props.data.number}
-              </p>
-              <p>
-                  <strong>Тип компании: </strong>{type}
-              </p>
-              <p>
-                  <strong>Дата регистрации: </strong>{this.props.data.date}
-              </p>
-              <p>
-                  <strong>Активен?: </strong>{this.props.data.active ? 'Да' : 'Нет'}
-              </p>
-          </div>
+          <Container>
+            <Row>
+              <Span><strong>ID: </strong></Span>
+              <Span>{this.props.data.id}</Span>
+            </Row>
+            <Row>
+              <Span><strong>Имя:</strong></Span>
+              <Span>{this.props.data.name}</Span>
+            </Row>
+            <Row>
+              <Span><strong>ОГРН:</strong></Span>
+              <Span>{this.props.data.number}</Span>
+            </Row>
+            <Row>
+              <Span><strong>Тип компании:</strong></Span>
+              <Span>{type}</Span>
+            </Row>
+            <Row>
+              <Span><strong>Дата регистрации:</strong></Span>
+              <Span>{this.props.data.date}</Span>
+            </Row>
+            <Row>
+              <Span><strong>Активен?</strong></Span>
+              <Span>{this.props.data.active ? 'Да' : 'Нет'}</Span>
+            </Row>
+          </Container>
         }
-        <Link to="/">Back to companies</Link>
+        <Link to="/">К списку компаний</Link>
       </div>
     );
   }
