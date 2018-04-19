@@ -6,13 +6,13 @@ import style from './style.css';
 
 export class Item extends Component {
     constructor(props) {
-        super(props);
+        super(props);console.log(props);
     }
     render() {
         return (
             <div>
               {
-                this.props.data &&
+                this.props.data && this.props.location &&
                 <Link to={`/company/edit/${this.props.data.id}`}>Edit company</Link>
               }
               {

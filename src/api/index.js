@@ -40,4 +40,10 @@ export default class Api {
     }];
     return response;
   }
+  static async updateCompany(id, data) {
+    const response = {
+      success: true,
+    };
+    return response;
+  }
 }

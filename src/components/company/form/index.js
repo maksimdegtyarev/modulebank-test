@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
+import { updateCompany } from '../../../actions/company';
 import Item from '../item';
 import RenderDatePicker from './date';
 
@@ -13,14 +14,18 @@ export class Edit extends Component {
       submit: false,
     };
   }
-  submit(data) {
-    console.log(data);
+  submit(val, dispatch) {
+      this.setState({
+          submit: true,
+      });
+      this.props.handleSubmit(val, dispatch);
   }
   render() {
     return (
       <div>
         <Link to={`/company/${this.props.match.params.id}`}>To company</Link>
-        <form onSubmit={this.submit}>
+        <form onSubmit={(v, d) => this.submit(v, d)}>
+          <Field name="id" component="input" type="hidden" />
           <div>
             <label htmlFor="name">Имя</label>
             <Field name="name" id="name" component="input" type="text" />
@@ -33,7 +38,7 @@ export class Edit extends Component {
             <label htmlFor="type">Тип компании</label>
             <Field name="type" id="type" component="select">
               {
-                this.props.types.map(type => <option key={type.id}>{type.value}</option>)
+                this.props.types.map(type => <option value={type.id} key={type.id}>{type.value}</option>)
               }
             </Field>
           </div>
@@ -55,7 +60,7 @@ export class Edit extends Component {
             <label htmlFor="active">Активен</label>
             <Field name="active" id="active" component="input" type="checkbox" />
           </div>
-          <button type="submit">Update</button>
+          <button type="submit" disabled={this.props.submitting}>Update</button>
         </form>
         {
           this.state.submit && <Item id={this.props.match.params.id} />
@@ -65,12 +70,26 @@ export class Edit extends Component {
   }
 }
 
-const mapStateToProps = (store) => {
+const onSubmit = (values, dispatch) => {
+  dispatch(updateCompany(values.id, values));
+};
+
+const mapStateToProps = (store, ownProps) => {
+  let data = {};
+  const companies = store.company.list.filter(company => company.id === parseInt(ownProps.match.params.id));
+  if (companies.length) {
+    data = {...companies[0]};
+  }
   return {
     types: store.company.types,
+    initialValues: data,
   };
 };
 
-Edit = connect(mapStateToProps)(Edit);
+Edit = reduxForm({
+  form: 'edit',
+  onSubmit,
+  enableReinitialize: true
+}, mapStateToProps)(Edit);
 
-export default reduxForm({ form: 'edit' })(Edit);
+export default connect(mapStateToProps)(Edit);
