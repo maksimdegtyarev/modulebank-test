@@ -7,7 +7,7 @@ import Item from '../item';
 import RenderDatePicker from './date';
 
 
-export class Edit extends Component {
+export class Form extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -63,7 +63,7 @@ export class Edit extends Component {
           <button type="submit" disabled={this.props.submitting}>Update</button>
         </form>
         {
-          this.state.submit && <Item id={this.props.match.params.id} />
+          this.state.submit && <Item id={this.props.match.params.id} types={this.props.types} />
         }
       </div>
     );
@@ -86,10 +86,10 @@ const mapStateToProps = (store, ownProps) => {
   };
 };
 
-Edit = reduxForm({
+Form = reduxForm({
   form: 'edit',
   onSubmit,
   enableReinitialize: true
-}, mapStateToProps)(Edit);
+}, mapStateToProps)(Form);
 
-export default connect(mapStateToProps)(Edit);
+export default connect(mapStateToProps)(Form);

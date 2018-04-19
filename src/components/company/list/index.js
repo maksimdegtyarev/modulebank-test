@@ -6,9 +6,6 @@ import Company from '../item';
 
 
 export class List extends Component {
-    constructor(props) {
-        super(props);
-    }
     render() {
         return (
           <ul>
@@ -29,14 +26,6 @@ export class List extends Component {
 const mapStateToProps = (store) => {
   return {
     companies: store.company.list,
-    types: store.company.types,
   };
 };
-const mapDispatchToProps = (dispatch) => {
-  return {
-    fetchCompanies: () => {
-      dispatch(fetchCompanies());
-    },
-  };
-}
-export default connect(mapStateToProps, mapDispatchToProps)(List);
+export default connect(mapStateToProps)(List);

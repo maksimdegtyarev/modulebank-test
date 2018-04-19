@@ -8,19 +8,19 @@ import {
 } from '../actions/company';
 
 
-function* fetchTypes() {
+export function* fetchTypes() {
   yield put(updateTypes([]));
   const types = yield call(Api.getTypes);
   yield put(updateTypes(types));
 }
 
-function* fetchCompanies() {
+export function* fetchCompanies() {
   yield put(updateCompanies([]));
   const companies = yield call(Api.getCompanies);
   yield put(updateCompanies(companies));
 }
 
-function* updateCompany(action) {
+export function* updateCompany(action) {
   const { id, data } = action.payload;
   const success = yield call(Api.updateCompany, id, data);
   if (success) {
