@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from "react-router-dom";
+import { fetchCompanies } from '../../../sagas';
 import Company from '../item';
 
 
@@ -31,4 +32,11 @@ const mapStateToProps = (store) => {
     types: store.company.types,
   };
 };
-export default connect(mapStateToProps)(List);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchCompanies: () => {
+      dispatch(fetchCompanies());
+    },
+  };
+}
+export default connect(mapStateToProps, mapDispatchToProps)(List);
